@@ -27,7 +27,7 @@ class StimulusDataTables extends Controller {
   isDataTable = () => this.element.className.includes('dataTable')
 
   isPreview = () =>
-    document.documentElement.hasAttribute('data-turbolinks-preview')
+    document.documentElement.hasAttribute('data-turbo-preview')
 
   isLive = () => this.dataTable
 
@@ -65,7 +65,7 @@ class StimulusDataTables extends Controller {
     if (!this.isBooting()) return false
 
     // Register the teardown listener and start up DataTable.
-    document.addEventListener('turbolinks:before-render', this._teardown)
+    document.addEventListener('turbo:before-render', this._teardown)
     this.dataTable = window
       .jQuery(this.element)
       .DataTable(Object.assign({}, this.config))
@@ -79,7 +79,7 @@ class StimulusDataTables extends Controller {
   teardown(event) {
     if (!this.isLive()) return false
 
-    document.removeEventListener('turbolinks:before-render', this._teardown)
+    document.removeEventListener('turbo:before-render', this._teardown)
     this.dataTable.destroy()
     this.dataTable = undefined
 
